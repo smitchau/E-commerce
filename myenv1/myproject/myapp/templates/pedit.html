@@ -1,0 +1,105 @@
+{% extends "sheader.html" %}
+{% load static %}
+{% block content %}
+<head>
+
+	<!-- Title page -->
+	<section class="bg-img1 txt-center p-lr-15 p-tb-92" style="background-image: url('{% static 'images/bg-01.jpg'%}');">
+		<h2 class="ltext-105 cl0 txt-center">
+			Edit Product
+		</h2>
+	</section>	
+
+<!-- Content page -->
+
+<!-- Content page -->
+<section class="bg0 p-t-104 p-b-116">
+    <div class="container">
+        <div class="flex-w flex-tr justify-content-center"> <!-- Center the content -->
+            <div class="size-210 bor10 p-lr-70 p-t-55 p-b-70 p-lr-15-lg w-full-md">
+
+                <form method="post" action="{% url 'pedit' pk=product.pk %}" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    <h4 class="mtext-105 cl2 txt-center p-b-30">
+                        Edit Product
+                    </h4>
+
+                    <div class="col-md-12">
+                        <h4>Categorie</h4>
+                        <div class="form-group">
+                            <select name="categorie" id="" class="col-md-12" style="height: 35px;">
+                                <option value="Men" selected>Men</option>
+                                <option value="Women">Women</option>
+                                <option value="Chiled">Chiled</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="col-md-12">
+                        <h4>Size</h4>
+                        <div class="form-group">
+                            <select name="size" id="" class="col-md-12" style="height: 35px;">
+                                <option value="S">S</option>
+                                <option value="L" selected>L</option>
+                                <option value="M">M</option>
+                                <option value="XL">XL</option>
+                                <option value="XXL">XXL</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="col-md-12">
+                        <h4>Brand</h4>
+                        <div class="form-group">
+                            <select name="brand" id="" class="col-md-12" style="height: 35px;">
+                                <option value="Levi's" selected>Levi's</option>
+                                <option value="Being Human">Being Human</option>
+                                <option value="Biba">Biba</option>
+                                <option value="Aurelia">Aurelia</option>
+                                <option value="Max">Max</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="col-md-12 " style="margin-top: 20px;">
+                        <div class="bor8 m-b-20 how-pos4-parent">
+                            <input class="stext-111 cl2 plh3 size-116 p-l-62 p-r-30" type="text" name="pname" value="{{product.pname}}" placeholder="Product name" required> 
+                        </div>
+                    </div>
+
+                    <div class="col-md-4 ">
+                        <div class="bor8 m-b-20 how-pos4-parent">
+                            <img src="{{product.ppicture.url}}" alt="" style="height: 100px; width: 111px;">
+                        </div>
+                    </div>
+                    
+                    <div class="col-md-8 " style="margin-top: 20px;">
+                        <div class="bor8 m-b-20 how-pos4-parent">
+                            <input class="stext-111 cl2 plh3 size-116 p-l-62 p-r-30" type="file" name="ppicture" required > 
+                        </div>
+                    </div>
+
+                    <div class="col-md-12 ">
+                        <h4>product discription</h4>
+                        <div class="bor8 m-b-20 how-pos4-parent">
+                            <textarea class="stext-111 cl2 plh3 size-116 p-l-62 p-r-30" name="disc" required>{{product.disc}}</textarea>
+                        </div>
+                    </div>
+
+                    <div class="col-md-12 ">
+                        <div class="bor8 m-b-20 how-pos4-parent">
+                            <input class="stext-111 cl2 plh3 size-116 p-l-62 p-r-30" type="number" name="pprice" placeholder="price" value="{{product.pprice}}" required> 
+                        </div>
+                    </div>
+
+
+                    <button class="flex-c-m stext-101 cl0 size-121 bg3 bor1 hov-btn3 p-lr-15 trans-04 pointer" type="submit">
+                        Edit Product
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+</section>
+
+{% endblock %}

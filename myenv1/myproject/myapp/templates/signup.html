@@ -1,0 +1,77 @@
+{% extends "header.html" %}
+{% load static %}
+{% block content %}
+<head>
+
+	<!-- Title page -->
+	<section class="bg-img1 txt-center p-lr-15 p-tb-92" style="background-image: url('{% static 'images/bg-01.jpg'%}');">
+		<h2 class="ltext-105 cl0 txt-center">
+			signup
+		</h2>
+	</section>	
+
+<!-- Content page -->
+
+<!-- Content page -->
+<section class="bg0 p-t-104 p-b-116">
+    <div class="container">
+        <div class="flex-w flex-tr justify-content-center"> <!-- Center the content -->
+            <div class="size-210 bor10 p-lr-70 p-t-55 p-b-70 p-lr-15-lg w-full-md">
+
+                <form method="post" action="{% url 'signup' %}" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    <h4 class="mtext-105 cl2 txt-center p-b-30">
+                        Sign Up
+                    </h4>
+                    
+                    
+                    <div class="bor8 m-b-20 how-pos4-parent">
+                        <input class="stext-111 cl2 plh3 size-116 p-l-62 p-r-30" type="email" name="uemail" placeholder="Email" required>
+                        
+                    </div>
+
+                    <div class="bor8 m-b-20 how-pos4-parent">
+                        <input class="stext-111 cl2 plh3 size-116 p-l-62 p-r-30" type="text" name="uname" placeholder=" Name" required>
+                    </div>
+
+                    <div class="bor8 m-b-20 how-pos4-parent">
+                        <input class="stext-111 cl2 plh3 size-116 p-l-62 p-r-30" type="text" name="ucontact" placeholder="Contact" required>
+                    </div>
+
+                    <div class="bor8 m-b-20 how-pos4-parent">
+                        <input class="stext-111 cl2 plh3 size-116 p-l-62 p-r-30" type="password" name="upassword" placeholder="Password" required>
+                    </div>
+
+                    <div class="bor8 m-b-30 how-pos4-parent">
+                        <input class="stext-111 cl2 plh3 size-116 p-l-62 p-r-30" type="password" name="ucpassword" placeholder="Confirm Password" required>
+                    </div>
+                    
+                    <div class="col-md-12">
+                        <p><b>Upload Profile Picture</b></p>
+                        <div class="form-group">
+                            <input type="file" class="form-control" name="picture">
+                        </div>
+                    </div>
+
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <select name="srole" id="" class="col-md-12" style="height: 35px;">
+                                <option value="buyer" selected>Buyer</option>
+                                <option value="seller">seller</option>
+                            </select>
+                        </div>
+                    </div>
+              
+                    <div  class="col-md-12" style="margin-top: 25px;">
+                        
+                    </div>
+                    <button class="flex-c-m stext-101 cl0 size-121 bg3 bor1 hov-btn3 p-lr-15 trans-04 pointer" type="submit">
+                        Sign Up
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+</section>
+
+{% endblock %}

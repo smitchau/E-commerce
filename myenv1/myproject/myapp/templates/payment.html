@@ -1,0 +1,145 @@
+{% extends "header.html" %}
+{% load static %}
+{% block content %}
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<br>
+<br>
+<br>
+<br>
+	<!-- breadcrumb -->
+	<div class="container">
+		<div class="bread-crumb flex-w p-l-25 p-r-15 p-t-30 p-lr-0-lg">
+			<a href="{% url "home" %}" class="stext-109 cl8 hov-cl1 trans-04">
+				Home
+				<i class="fa fa-angle-right m-l-9 m-r-10" aria-hidden="true"></i>
+			</a>
+
+			<span class="stext-109 cl4">
+				Shoping Cart
+			</span>
+		</div>
+	</div>
+	<br>
+	<br>
+	<br>
+	<br>
+	<!--popup manu model-->
+	<div id="myForm" class="popup">
+</div>
+	<!--popup manu model end-->
+	<!-- Shoping Cart -->
+	<div class="container">
+		<div class="row">
+					<div class="col-sm-10 col-lg-7 col-xl-5 m-lr-auto m-b-50" style="margin-left: 20rem;">
+						<div class="bor10 p-lr-40 p-t-30 p-b-40 m-l-63 m-r-40 m-lr-0-xl p-lr-15-sm">
+							<h4 class="mtext-109 cl2 p-b-30">
+								Cart Totals
+							</h4>
+
+							{% comment %} <div class="flex-w flex-t bor12 p-b-13"> {% endcomment %}
+								{% comment %} <div class="size-208">
+									<span class="stext-110 cl2">
+										Subtotal:
+									</span>
+								</div>
+
+								<div class="size-209">
+									<span class="mtext-110 cl2">
+										{{subtotal}}
+									</span>
+								</div> {% endcomment %}
+							{% comment %} </div> {% endcomment %}
+
+							{% comment %} <div class="flex-w flex-t bor12 p-t-15 p-b-30"> {% endcomment %}
+								{% comment %} <div class="size-208 w-full-ssm">
+									<span class="stext-110 cl2">
+										Shipping:
+									</span>
+								</div>
+
+								<div class="size-209 p-r-18 p-r-0-sm w-full-ssm">
+									{% if ship %}
+									<div class="size-209">
+										<span class="mtext-110 cl2">
+											{{ship}}
+										</span>
+									</div>
+									{% else %}
+									<p class="stext-111 cl6 p-t-2">
+									If The Subtotal Price Is Less Then 20000 So Shipping Charge Will Be Taken
+									</p>
+									{% endif %} {% endcomment %}
+								{% comment %} </div> {% endcomment %}
+							{% comment %} </div> {% endcomment %}
+
+							<div class="flex-w flex-t p-t-27 p-b-33">
+								<div class="size-208">
+									<span class="mtext-101 cl2">
+										Total:
+									</span>
+								</div>
+
+								<div class="size-209 p-t-1">
+									<span class="mtext-110 cl2">
+										{{request.session.total}}
+									</span>
+								</div>
+							</div>
+								<button class="flex-c-m stext-101 cl0 size-116 bg3 bor14 hov-btn3 p-lr-15 trans-04 pointer" id="rzp-button1">
+									Buy Now
+								</button></a>  
+							{% comment %} <button onclick="document.getElementById('myModal').style.display='block'">Open Login Modal</button> {% endcomment %}
+
+						
+					</div>
+				</div>
+			</div>
+		</div>
+<script>
+	<script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+	<script>
+		var options = {
+			"key": "rzp_test_3iCOPLbchUyIwQ", // Enter the Key ID generated from the Dashboard
+			"amount": "{{context.payment.amount}}",// Amount is in currency subunits. Default currency is INR. Hence, 50000 refers to 50000 paise
+			"currency": "INR",
+			"name": "Home Shifting",
+			"description": "Test Payment",
+			"image": "{% static 'myapp/images/hm.png' %}",
+			"order_id": "{{payment.razorpay_order_id}}", //This is a sample Order ID. Pass the `id` obtained in the response of Step 1
+			"handler": function (response){
+
+				window.location.href=`http://localhost:8000/success?razorpay_payment_id=${response.razorpay_payment_id}`
+
+				// alert(response.razorpay_payment_id);
+				// alert(response.razorpay_order_id);
+				
+			},
+			"theme": {
+				"color": "#94CA21"
+			}
+		};
+		var rzp1 = new Razorpay(options);
+		rzp1.on('payment.failed', function (response){
+				alert(response.error.code);
+				alert(response.error.description);
+				alert(response.error.source);
+				alert(response.error.step);
+				alert(response.error.reason);
+				alert(response.error.metadata.order_id);
+				alert(response.error.metadata.payment_id);
+		});
+		document.getElementById('rzp-button1').onclick = function(e){
+			rzp1.open();
+			e.preventDefault();
+		}
+	</script> 
+		<br>
+		<br>
+		<br>
+		<br>
+		<br>
+		
+{% endblock  %}

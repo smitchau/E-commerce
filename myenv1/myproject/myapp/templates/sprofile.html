@@ -1,0 +1,126 @@
+{% extends "sheader.html" %}
+{% load static %}
+{% block content %}
+<head>
+  <style>
+    body{
+      background-color: #5F9EA0;
+  }
+  
+  .profile-badge{
+      border:1px solid #c1c1c1;
+      padding:5px;
+  }
+
+  .profile-pic{
+      height:120px;
+      width:120px;
+      margin-left: 50%;
+      transform: translateX(-50%);
+      top: 0px;
+      z-index: 1001;
+      padding: 10px;
+  }
+  .profile-pic img{
+      border-radius: 50%;
+      box-shadow: 0px 0px 5px 0px #c1c1c1;
+      cursor: pointer;
+      width: 100px;
+      height: 100px;
+  }   
+  
+  </style>
+  <script>
+   
+  
+      function openFileUploader() {
+          document.getElementById('fileUploader').click();
+      }
+  
+      function submitForm() {
+          document.getElementById('myForm').submit();
+      }
+  
+
+  </script>
+
+</head>
+	<!-- Title page -->
+	<section class="bg-img1 txt-center p-lr-15 p-tb-92" style="background-image: url('{% static 'images/bg-01.jpg'%}');">
+		<h2 class="ltext-105 cl0 txt-center">
+			Welcome to Profile page
+		</h2>
+	</section>	
+
+
+<section style="background-color: #eee;">
+    <div class="container py-5">
+      
+      </div>
+  
+      <div class="row">
+        <div class="col-lg-4">
+          <div class="card mb-4">
+            <div class="card-body text-center">
+
+                <div class="profile-pic">
+                  <img alt="User Pic" src="{{request.session.picture}}" id="profile-image1" height="200" onclick="openFileUploader()">
+                  
+
+                  <form id="myForm" action="{% url 'sprofile' %}" method="post" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    <input type="file" name="picture" id="fileUploader" style="display: none;" onchange="submitForm()">
+                    <input type="button" value="Select File" onclick="openFileUploader()" style="display: none;">
+                    <input type="submit" value="Submit" style="display: none;">
+                  </form>
+
+                  <div style="color:#999;" >  </div>
+                </div>
+          
+
+              <h5 class="my-3">{{user.name}}</h5>
+              
+        
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-8">
+          <div class="card mb-4">
+            <div class="card-body">
+              <div class="row">
+                <div class="col-sm-3">
+                  <p class="mb-0">Full Name</p>
+                </div>
+                <div class="col-sm-9">
+                  <p class="text-muted mb-0">{{user.name}}</p>
+                </div>
+              </div>
+              <hr>
+              <div class="row">
+                <div class="col-sm-3">
+                  <p class="mb-0">Email</p>
+                </div>
+                <div class="col-sm-9">
+                  <p class="text-muted mb-0">{{user.email}}</p>
+                </div>
+              </div>
+              <hr>
+              <div class="row">
+                <div class="col-sm-3">
+                  <p class="mb-0">Phone</p>
+                </div>
+                <div class="col-sm-9">
+                  <p class="text-muted mb-0">{{user.contact}}</p>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="container py-5">
+      
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+{% endblock %}

@@ -1,0 +1,172 @@
+{% extends "header.html" %}
+{% load static %}
+{% block content %}
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<br>
+<br>
+<br>
+<br>
+	<!-- breadcrumb -->
+	<div class="container">
+		<div class="bread-crumb flex-w p-l-25 p-r-15 p-t-30 p-lr-0-lg">
+			<a href="{% url "home" %}" class="stext-109 cl8 hov-cl1 trans-04">
+				Home
+				<i class="fa fa-angle-right m-l-9 m-r-10" aria-hidden="true"></i>
+			</a>
+
+			<span class="stext-109 cl4">
+				Shoping Cart
+			</span>
+		</div>
+	</div>
+	<br>
+	<br>
+	<br>
+	<br>
+	<!--popup manu model-->
+	<div id="myForm" class="popup">
+</div>
+	<!--popup manu model end-->
+	<!-- Shoping Cart -->
+	<div class="container">
+		<div class="row">
+			{% if cart %}
+			<div class="col-lg-10 col-xl-9 m-lr-auto m-b-50" style="margin-left: -20rem;">
+				          
+					<div class="m-l-25 m-r--38 m-lr-0-xl">
+						<div class="wrap-table-shopping-cart">
+							<table class="table-shopping-cart">
+								<tr class="table_head">
+									<th class="column-1">Product</th>
+									<th class="column-2">Name</th>
+									<th class="column-3">Price</th>
+									<th class="column-4">Quantity</th>
+									<th class="column-5">Total</th>
+									<th class="column-6"></th>
+									<th class="column-7"></th>
+										
+								</tr>
+								{% for i in cart %}
+								<tr class="table_row">
+									<td class="column-1">
+										<div class="how-itemcart1">
+											<img src="{{i.product.ppicture.url}}" alt="IMG">
+										</div>
+									</td>
+									<td class="column-2">{{i.product.pname}}</td>
+									<td class="column-3">{{i.product.pprice}}</td>
+									<td class="column-4">
+										<div >
+											<form action="{% url 'change_quantity' pk=i.pk %}" method="POST">
+											{% csrf_token %}
+												<!-- <input type="hidden" name="id" value="{{i.pk}}"> -->
+												<input type="number" name="qty" value="{{i.quantity}}" min="1" max="10"  style="border: 1px solid black; height: 3rem; width: 3rem; margin-left: 5rem; text-align: center;" onchange="this.form.submit()">
+											</form>
+										</div>
+									</td>
+									<td class="column-5">{{i.total_price}}</td>
+									<td class="column-7"><a href="{% url 'delete_cart' pk=i.product.pk %}" ><i class="zmdi zmdi-delete" style="text-decoration: none; color: black;"></i></a></td>					
+								</tr>
+								{% endfor %}
+							</table>
+						</div>
+					</div>
+				</div>
+
+					<div class="col-sm-10 col-lg-6 col-xl-5 m-lr-auto m-b-50" style="margin-left: 0rem;">
+						<div class="bor10 p-lr-40 p-t-30 p-b-40 m-l-63 m-r-40 m-lr-0-xl p-lr-15-sm">
+							<h4 class="mtext-109 cl2 p-b-30">
+								Cart Totals
+							</h4>
+
+							<div class="flex-w flex-t bor12 p-b-13">
+								<div class="size-208">
+									<span class="stext-110 cl2">
+										Subtotal:
+									</span>
+								</div>
+
+								<div class="size-209">
+									<span class="mtext-110 cl2">
+										{{subtotal}}
+									</span>
+								</div>
+							</div>
+
+							<div class="flex-w flex-t bor12 p-t-15 p-b-30">
+								<div class="size-208 w-full-ssm">
+									<span class="stext-110 cl2">
+										Shipping:
+									</span>
+								</div>
+
+								<div class="size-209 p-r-18 p-r-0-sm w-full-ssm">
+									{% if ship %}
+									<div class="size-209">
+										<span class="mtext-110 cl2">
+											{{ship}}
+										</span>
+									</div>
+									{% else %}
+									<p class="stext-111 cl6 p-t-2">
+									If The Subtotal Price Is Less Then 20000 So Shipping Charge Will Be Taken
+									</p>
+									{% endif %}
+								</div>
+							</div>
+
+							<div class="flex-w flex-t p-t-27 p-b-33">
+								<div class="size-208">
+									<span class="mtext-101 cl2">
+										Total:
+									</span>
+								</div>
+
+								<div class="size-209 p-t-1">
+									<span class="mtext-110 cl2">
+										{{total}}
+									</span>
+								</div>
+							</div>
+								<a href="{% url 'check_out' %}"><button class="flex-c-m stext-101 cl0 size-116 bg3 bor14 hov-btn3 p-lr-15 trans-04 pointer">
+									Buy Now
+								</button></a>  
+							{% comment %} <button onclick="document.getElementById('myModal').style.display='block'">Open Login Modal</button> {% endcomment %}
+
+						{% else %}
+							
+							<h2>No Events in Cart</h2>
+							<br>
+							<br>
+							<br>
+							<br>
+						{% endif %}
+					</div>
+				</div>
+			</div>
+		</div>
+<script>
+    // Function to open the form
+    function openForm() {
+        document.getElementById("myForm").style.display = "block";
+    }
+
+    // Function to close the form
+    function closeForm() {
+        document.getElementById("myForm").style.display = "none";
+    }
+
+    // Function to submit the form
+    function submitForm() {
+        document.getElementById("orderForm").submit();
+    }
+</script>
+		<br>
+		<br>
+		<br>
+		<br>
+		<br>
+{% endblock  %}

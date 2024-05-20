@@ -1,0 +1,87 @@
+{% extends 'sheader.html' %}
+{% load static %}
+{% block content %}
+	<!-- Product -->
+
+	<section class="bg-img1 txt-center p-lr-15 p-tb-92" style="background-image: url('{% static 'images/bg-01.jpg'%}');">
+		<h2 class="ltext-105 cl0 txt-center">
+			view Products
+		</h2>
+	</section>	
+
+	<div class="bg0 m-t-23 p-b-140">
+		<div class="container" style="padding-top: 40px;">
+			<div class="flex-w flex-sb-m p-b-52">
+				<div class="flex-w flex-l-m filter-tope-group m-tb-10">
+					<a href="{% url "viewproduct" cat="all" %}"><button class="stext-106 cl6 hov1 bor3 trans-04 m-r-32 m-tb-5 how-active1" data-filter="*">
+						All Products
+					</button></a>
+
+					<a href="{% url "viewproduct" cat="Women" %}"><button class="stext-106 cl6 hov1 bor3 trans-04 m-r-32 m-tb-5" data-filter=".women">
+						Women
+					</button></a>
+
+					<a href="{% url "viewproduct" cat="Men" %}"><button class="stext-106 cl6 hov1 bor3 trans-04 m-r-32 m-tb-5" data-filter=".men">
+						Men
+					</button></a>
+
+					<a href="{% url "viewproduct" cat="Chiled" %}"><button class="stext-106 cl6 hov1 bor3 trans-04 m-r-32 m-tb-5" data-filter=".bag">
+						chiled
+					</button></a>
+				</div>
+
+				<!-- Search product -->
+				<div class="dis-none panel-search w-full p-t-10 p-b-15">
+					<div class="bor8 dis-flex p-l-15">
+						<button class="size-113 flex-c-m fs-16 cl2 hov-cl1 trans-04">
+							<i class="zmdi zmdi-search"></i>
+						</button>
+
+						<input class="mtext-107 cl2 size-114 plh2 p-r-15" type="text" name="search-product" placeholder="Search">
+					</div>	
+				</div>
+			</div>
+
+            
+
+			<div class="row isotope-grid">
+				{% if product %}
+                {% for i in product %}
+				<div class="col-sm-6 col-md-4 col-lg-3 p-b-35 isotope-item women">
+					<!-- Block2 -->
+					<div class="block2">
+						<div class="block2-pic hov-img0">
+							<img src="{{i.ppicture.url}}" alt="IMG-PRODUCT">
+
+							<a href="{% url 'pdetail' pk=i.pk %}" class="block2-btn flex-c-m stext-103 cl2 size-102 bg0 bor2 hov-btn1 p-lr-15 trans-04 "> <!--js-show-modal1-->
+								Quick View
+							</a>
+						</div>
+
+						<div class="block2-txt flex-w flex-t p-t-14">
+							<div class="block2-txt-child1 flex-col-l ">
+								<p class="stext-104 cl4 hov-cl1 trans-04 js-name-b2 p-b-6">
+									{{i.pname}}
+								</p>
+
+								{% comment %} <span class="stext-105 cl3">
+									{{i.pprice}}
+								</span> {% endcomment %}
+							</div>
+
+							<div class="block2-txt-child2 flex-r p-t-3">
+								<span class="stext-105 cl3">
+									{{i.pprice}}$
+								</span>
+							</div>
+						</div>
+					</div>
+				</div>
+                {% endfor %}
+				{% else %}
+				<h2 style="margin-left: 5rem;">item not found</h2>
+				{% endif %}
+			</div>           
+		</div>
+	</div>
+{% endblock %}	

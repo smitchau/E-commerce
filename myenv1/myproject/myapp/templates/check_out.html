@@ -1,0 +1,126 @@
+{% extends "header.html" %}
+{% load static %}
+{% block content %}
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Popup Form</title>
+	<style>
+		/* Popup container */
+		.popup {
+			display: none;
+			position: fixed;
+			z-index: 1;
+			left: 0;
+			top: 0;
+			width: 100%;
+			height: 100%;
+			overflow: auto;
+			background-color: rgba(0, 0, 0, 0.5);
+		}
+
+		/* Popup content */
+		.popup-content {
+			background-color: #fefefe;
+			margin: auto;
+			padding: 20px;
+			border: 1px solid #888;
+			width: 50%;
+			/* Adjust the width as needed */
+			position: absolute;
+			top: 50%;
+			left: 50%;
+			transform: translate(-50%, -50%);
+		}
+		.popupModel {
+		display: none;
+		position: fixed;
+		z-index: 9999;
+		left: 50%;
+		top: 50%;
+		transform: translate(-50%, -50%);
+		background-color: rgba(0, 0, 0, 0.5);
+		overflow: auto;
+		width: 100%;
+		height: 100%;
+	}
+
+	.popupContent {
+		background-color: #fefefe;
+		margin: auto;
+		padding: 20px;
+		border: 1px solid #888;
+		width: 80%;
+		max-width: 600px;
+		border-radius: 10px;
+		box-shadow: 0px 0px 20px 0px rgba(0, 0, 0, 0.2);
+	}
+
+	.close {
+		color: #aaa;
+		float: right;
+		font-size: 28px;
+		font-weight: bold;
+	}
+
+	.close:hover,
+	.close:focus {
+		color: black;
+		text-decoration: none;
+		cursor: pointer;
+	}
+	</style>
+</head>
+ 
+<!-- end -->
+<br>
+<br>
+<br>
+<!--popup manu model end-->
+<!-- breadcrumb -->
+<div class="container">
+	<div class="bread-crumb flex-w p-l-25 p-r-15 p-t-30 p-lr-0-lg">
+		<a href="{% url "home" %}" class="stext-109 cl8 hov-cl1 trans-04">
+			Home
+			<i class="fa fa-angle-right m-l-9 m-r-10" aria-hidden="true"></i>
+		</a>
+
+	</div>
+</div>
+<br>
+<!-- Shoping Cart -->
+<div class="container">
+            <div class="flex-w flex-tr justify-content-center"> <!-- Center the content -->
+                <div class="size-210 bor10 p-lr-70 p-t-55 p-b-70 p-lr-15-lg w-full-md">
+                    <form  method="POST" action="{% url 'order_details' %}">
+                        {% csrf_token %}
+                        <div class="bor8 m-b-20 how-pos4-parent">
+                            <input class="stext-111 cl2 plh3 size-116 p-l-62 p-r-30" type="text" name="first_name" placeholder="Enter Name" value="{{user.name}}">
+                        </div>
+
+                        <div class="bor8 m-b-20 how-pos4-parent">
+                            <input class="stext-111 cl2 plh3 size-116 p-l-62 p-r-30" type="email" name="email" placeholder=" Enter Email" value="{{user.email}}">
+                        </div>
+
+                        <div class="bor8 m-b-20 how-pos4-parent">
+                            <input class="stext-111 cl2 plh3 size-116 p-l-62 p-r-30" type="text" name="contact" placeholder="Enter Contact Number" value="{{user.contact}}">
+                        </div>
+
+                        <div class="bor8 m-b-20 how-pos4-parent">
+                            <textarea class="stext-111 cl2 plh3 size-116 p-l-62 p-r-30" name="address" placeholder="Enter Your Address"></textarea>
+                        </div>
+
+                        <div class="bor8 m-b-30 how-pos4-parent">
+                            <input class="stext-111 cl2 plh3 size-116 p-l-62 p-r-30" type="text" name="pincode" placeholder="Enter Pin Code">
+                        </div>
+                        <button class="flex-c-m stext-101 cl0 size-121 bg3 bor1 hov-btn3 p-lr-15 trans-04 pointer" type="submit">
+                            Submit
+                        </button>
+                    </form>
+                </div>
+            </div>
+</div>
+<script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+
+{% endblock %}
